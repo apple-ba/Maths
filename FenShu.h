@@ -1,11 +1,3 @@
-/*
-	Name: FenShu.h
-	Copyright: dhc(c)2020
-	Author: Dong Haochen
-	Date: 25/12/20 09:43
-	Description: 分数支持
-*/
-
 #include"basic.h"
 
 struct FenShu
