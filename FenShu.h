@@ -33,14 +33,49 @@ struct FenShu
 	}
 };
 
-FenShu operator+(FenShu x, FenShu y)
+void TongFen(FenShu &x, FenShu &y)
 {
-	FenShu ans;
-
-	ans.q = ZuiXiaoGongBeiShu(x.q, y.q);
-	ans.p = x.p * ans.q + y.p * ans.q;
-	ans.Correct();
-
-	return ans;
+	UINT ZXGBS = ZuiXiaoGongBeiShu(x.q, y.q);
+	x.p = x.p * ZXGBS / x.q;
+	y.p = y.p * ZXGBS / y.q;
+	x.q = ZXGBS;
+	y.q = ZXGBS;
 }
 
+FenShu operator+ (FenShu, FenShu);
+FenShu operator- (FenShu, FenShu);
+FenShu operator* (FenShu, FenShu);
+FenShu operator/ (FenShu, FenShu);
+
+void operator+= (FenShu&, FenShu);
+void operator-= (FenShu&, FenShu);
+void operator*= (FenShu&, FenShu);
+void operator/= (FenShu&, FenShu);
+
+bool operator> (FenShu, FenShu);
+bool operator< (FenShu, FenShu);
+bool operator>= (FenShu, FenShu);
+bool operator<= (FenShu, FenShu);
+bool operator== (FenShu, FenShu);
+bool operator!= (FenShu, FenShu);
+
+
+void operator+=(FenShu& x, FenShu y)
+{
+	TongFen(x, y);
+	x.p += y.p;
+	x.Correct();
+}
+
+void operator-=(FenShu& x, FenShu y)
+{
+	TongFen(x, y);
+	x.p += y.p;
+	x.Correct();
+}
+
+bool operator>(FenShu x, FenShu y)
+{
+	TongFen(x, y);
+	return (x.neg ? -1 : 1) * x.p > (y.neg ? -1 : 1) * y.p;
+}
