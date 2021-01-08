@@ -10,7 +10,7 @@ UINT ZuiDaGongYueShu(UINT x, UINT y)
 			y %= x;
 	}
 
-	return (x > y) ? x % y : y % x;
+	return x > y ? y : x;
 }
 
 
