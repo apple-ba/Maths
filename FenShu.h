@@ -1,5 +1,5 @@
-#include"basic.h"
-
+#include "basic.h"
+#include <stdio.h>
 struct FenShu
 {
 	UINT p, q;
@@ -31,6 +31,12 @@ struct FenShu
 	{
 		return 1.0 * p / q * (neg ? -1 : 1);
 	}
+
+  void Print()
+  {
+    printf("%d / %d" ,p ,q);
+
+  }
 };
 
 void TongFen(FenShu &x, FenShu &y)
@@ -70,12 +76,81 @@ void operator+=(FenShu& x, FenShu y)
 void operator-=(FenShu& x, FenShu y)
 {
 	TongFen(x, y);
-	x.p += y.p;
+	x.p -= y.p;
 	x.Correct();
 }
+
+void operator*=(FenShu& x, FenShu y)
+{
+	TongFen(x, y);
+	x.p *= y.p;
+	x.Correct();
+}
+
+void operator/=(FenShu& x, FenShu y)
+{
+	TongFen(x, y);
+ 	x.q = y.p;
+	x.Correct();
+}
+
 
 bool operator>(FenShu x, FenShu y)
 {
 	TongFen(x, y);
 	return (x.neg ? -1 : 1) * x.p > (y.neg ? -1 : 1) * y.p;
+}
+
+bool operator<(FenShu x, FenShu y)
+{
+	TongFen(x, y);
+	return (x.neg ? -1 : 1) * x.p < (y.neg ? -1 : 1) * y.p;
+}
+
+bool operator>=(FenShu x, FenShu y)
+{
+	TongFen(x, y);
+	return (x.neg ? -1 : 1) * x.p >= (y.neg ? -1 : 1) * y.p;
+}
+
+bool operator<=(FenShu x, FenShu y)
+{
+	TongFen(x, y);
+	return (x.neg ? -1 : 1) * x.p <= (y.neg ? -1 : 1) * y.p;
+}
+
+bool operator==(FenShu x, FenShu y)
+{
+	TongFen(x, y);
+	return (x.neg ? -1 : 1) * x.p == (y.neg ? -1 : 1) * y.p;
+}
+
+bool operator!=(FenShu x, FenShu y)
+{
+	TongFen(x, y);
+	return (x.neg ? -1 : 1) * x.p != (y.neg ? -1 : 1) * y.p;
+}
+
+FenShu operator+(FenShu x, FenShu y)
+{
+	x += y;
+	return x;
+}
+
+FenShu operator-(FenShu x, FenShu y)
+{
+	x -= y;
+ 	return x;
+}
+
+FenShu operator*(FenShu x, FenShu y)
+{
+	x *= y;
+ 	return x;
+}
+
+FenShu operator/(FenShu x, FenShu y)
+{
+	x /= y;
+	return x;
 }
